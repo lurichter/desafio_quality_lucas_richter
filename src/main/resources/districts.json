@@ -1,0 +1,22 @@
+[
+  {
+    "districtName": "Pinheiros",
+    "squareMeterValue": 12900.00
+  },
+  {
+    "districtName": "Tatuapé",
+    "squareMeterValue": 9200.00
+  },
+  {
+    "districtName": "Ibirapuera",
+    "squareMeterValue": 11500.00
+  },
+  {
+    "districtName": "Lapa",
+    "squareMeterValue": 7100.00
+  },
+  {
+    "districtName": "Santana",
+    "squareMeterValue": 9500.00
+  }
+]
