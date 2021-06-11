@@ -1,6 +1,7 @@
 package meli.desafio_quality.controller;
 
 import meli.desafio_quality.dto.ErrorMessageDTO;
+import meli.desafio_quality.exception.DistrictNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -34,5 +35,12 @@ public class ValidationController {
 
         return dto;
     }
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(DistrictNotFoundException.class)
+    public ErrorMessageDTO EntityNotFoundHandler(Exception exception) {
+        return new ErrorMessageDTO("district", exception.getMessage());
+    }
+
 
 }

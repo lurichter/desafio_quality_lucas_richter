@@ -1,9 +1,7 @@
 package meli.desafio_quality.service;
 
-import meli.desafio_quality.dto.PropertyDTO;
-import meli.desafio_quality.dto.PropertyResponseDTO;
-import meli.desafio_quality.dto.RoomDTO;
-import meli.desafio_quality.dto.RoomSquareMetersDTO;
+import meli.desafio_quality.dto.*;
+import meli.desafio_quality.exception.DistrictNotFoundException;
 import meli.desafio_quality.repository.DistrictRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +22,7 @@ public class PropertyService {
 
     public List<RoomSquareMetersDTO> getSquareMetersByRoom (List<RoomDTO> rooms) {
         return rooms.stream().map(x -> new RoomSquareMetersDTO(x.getRoomName(),
-                                                Math.round(x.getRoomWidth() * x.getRoomWidth() * 100.0) / 100.0))
+                                                Math.round(x.getRoomWidth() * x.getRoomLength() * 100.0) / 100.0))
                                 .collect(Collectors.toList());
     }
 
@@ -39,14 +37,16 @@ public class PropertyService {
         return squareMeters.stream().mapToDouble(RoomSquareMetersDTO::getRoomSquareMeters).sum();
     }
 
-    public double getPropertyValue(PropertyDTO property) {
-        double squareMeterValue = this.districtRepository
-                                        .getDistrictByName(property.getDistrict())
-                                        .getSquareMeterValue();
+    public double getPropertyValue(PropertyDTO property) throws DistrictNotFoundException {
+        DistrictDTO district = this.districtRepository.getDistrictByName(property.getDistrict());
+        if (district == null) {
+            throw new DistrictNotFoundException("bairro não encontrado.");
+        }
+        double squareMeterValue = district.getSquareMeterValue();
         return getPropertySquareMeters(property.getRooms()) * squareMeterValue;
     }
 
-    public PropertyResponseDTO computePropertyData(PropertyDTO property) {
+    public PropertyResponseDTO computePropertyData(PropertyDTO property) throws DistrictNotFoundException{
         PropertyResponseDTO propertyData = new PropertyResponseDTO();
         propertyData.setTotalSquareMeters(getPropertySquareMeters(property.getRooms()));
         propertyData.setPropertyValue(getPropertyValue(property));
