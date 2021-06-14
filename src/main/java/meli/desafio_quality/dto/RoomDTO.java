@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 public class RoomDTO {
 
     @NotBlank
-    @Pattern(regexp = "[A-Z][\\w\\s]*", message = "deve começar com letra maiúscula.")
+    @Pattern(regexp = "\\p{Lu}[\\p{L}\\s0-9]*", message = "deve começar com letra maiúscula.")
     @Size(max = 30)
     private String roomName;
     @NotNull

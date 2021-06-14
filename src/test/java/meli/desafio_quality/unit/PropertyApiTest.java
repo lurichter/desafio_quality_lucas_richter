@@ -11,11 +11,12 @@ import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+@SpringBootTest
 public class PropertyApiTest {
 
     DistrictRepository districtRepository = new DistrictRepository();
@@ -55,9 +56,10 @@ public class PropertyApiTest {
 
     @Test
     void returnExceptionWhenDistrictNotFound() {
-        propertyDTO.setDistrict("Invalid District");
+        this.propertyDTO.setDistrict("Invalid District");
         Assertions.assertThatThrownBy(() -> {this.propertyService.getPropertyValue(propertyDTO);})
-                .hasCauseInstanceOf(DistrictNotFoundException.class);
+                .isInstanceOf(DistrictNotFoundException.class)
+                .hasMessage("bairro não encontrado.");
     }
 
     @Test

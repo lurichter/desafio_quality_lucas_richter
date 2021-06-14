@@ -11,7 +11,7 @@ import java.util.List;
 
 public class PropertyDTO {
 
-    @Pattern(regexp = "[A-Z][\\w\\s]*", message = "deve começar com letra maiúscula.")
+    @Pattern(regexp = "\\p{Lu}[\\p{L}\\s0-9]*", message = "deve começar com letra maiúscula.")
     @Size(min = 3, max = 30)
     @NotBlank
     private String name;
