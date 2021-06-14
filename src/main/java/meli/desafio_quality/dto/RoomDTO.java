@@ -11,13 +11,13 @@ public class RoomDTO {
 
     @NotBlank
     @Pattern(regexp = "\\p{Lu}[\\p{L}\\s0-9]*", message = "deve começar com letra maiúscula.")
-    @Size(max = 30)
+    @Size(min = 3, max = 30)
     private String roomName;
     @NotNull
-    @Range(max = 25)
+    @Range(min = 1, max = 25)
     private double roomWidth;
     @NotNull
-    @Range(max = 33)
+    @Range(min = 1, max = 33)
     private double roomLength;
 
     public RoomDTO() {
