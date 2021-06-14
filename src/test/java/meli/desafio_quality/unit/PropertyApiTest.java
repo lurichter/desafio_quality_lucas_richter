@@ -8,7 +8,6 @@ import meli.desafio_quality.repository.DistrictRepository;
 import meli.desafio_quality.service.PropertyService;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.groups.Tuple;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
